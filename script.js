@@ -8,7 +8,7 @@ const products = [
         name: 'The Ankh Necklace',
         category: 'necklaces',
         price: 18,
-        description: 'Inspired by egyptian mythology combined with rosemary-like aesthetic. The chain and the charm are made by stainless steel and they are anti-allergic..',
+        description: 'Inspired by egyptian mythology combined with rosemary-like aesthetic. The chain and the charm are made by stainless steel and they are anti-allergic.',
         images: ['Images/Necklaces/AnkhNecklace/photo1.jpg', 'Images/Necklaces/AnkhNecklace/photo2.jpg'] // Add up to 5 image URLs - main image first
     },
     {
@@ -21,49 +21,50 @@ const products = [
     },
     {
         id: 3,
-        name: 'Crystal Pendant',
-        category: 'necklaces',
-        price: 30,
-        description: 'Μωβ crystal pendant σε μαύρη αλυσίδα, handmade με αγάπη.',
-        images: ['', '', '']
+        name: 'Black Starry Heart Choker',
+        category: 'chokers',
+        price: 15,
+        description: 'Black Starry Heart, where darkness learns to shine. This necklace features a hand-wired chain crafted from stainless steel, with bead-connecting rings made of zinc alloy. The charm is also made from zinc alloy. If you wish, you may include your preferred necklace length in the description so it can be made to fit you perfectly. ',
+        images: ['Images/Chokers/BlackStarryHeart/photo1.jpg', 'Images/Chokers/BlackStarryHeart/photo2.jpg']
     },
     
     // Chokers
-    {
-        id: 4,
-        name: 'Velvet Choker',
-        category: 'chokers',
-        price: 20,
-        description: 'Βελούδινο choker με gothic charm, comfortable και stylish.',
-        images: ['', '', '']
-    },
-    {
+        {
         id: 5,
-        name: 'Spiked Choker',
+        name: 'The Skull Choker',
         category: 'chokers',
-        price: 22,
-        description: 'Edgy choker με μικρά spikes, perfect για punk-goth look.',
-        images: ['', '', '']
+        price: 15,
+        description: 'The Skull Choker, devotion carved in bone.The chain is hand-wired and made fromm Stainless Steel, the skull charms and the spikes are made from Zinic Alloy. If you wish, you may include your preferred necklace length in the description so it can be made to fit you perfectly.',
+        images: ['Images/Chokers/SkullChoker/photo1.jpg', 'Images/Chokers/SkullChoker/photo3.jpg', 'Images/Chokers/SkullChoker/photo2.jpg']
     },
-    {
+       {
         id: 6,
-        name: 'Lace Choker',
-        category: 'chokers',
-        price: 18,
-        description: 'Λεπτή δαντέλα με κεντρικό charm, romantic gothic aesthetic.',
-        images: ['', '', '']
+        name: 'The Ouija Board Necklace',
+        category: 'necklaces',
+        price: 25,
+        description: 'The Ouija Board Necklace, whisper your question...let the spirits answer. The ouija board charm is made from Stainless Steel, the wires are made from Zinic Alloy.',
+        images: ['Images/Necklaces/OuijaBoard/photo1.jpg', 'Images/Necklaces/OuijaBoard/photo2.jpg', 'Images/Necklaces/OuijaBoard/photo3.jpg']
     },
     
-    // Earrings
+
     {
-        id: 7,
-        name: 'Bat Earrings',
-        category: 'earrings',
-        price: 8,
-        description: 'Write me in the description if you want the Black or Red pair !! Only 1 pair included. The hook is made by Stainless Steel and the charm is made by Zinic Alloy.',
-        images: ['Images/Earrings/BatEarrings.jpg']
+        id: 4,
+        name: 'Midnight Devotion Choker',
+        category: 'chokers',
+        price: 25,
+        description: 'Midnight Devotion, a love sworn after dark. The chain is hand-wired and made from Stainless Steel, the charm in the middle is made from Zinic Alloy.If you wish, you may include your preferred necklace length in the description so it can be made to fit you perfectly. ',
+        images: ['Images/Chokers/MidnightDevotion/photo1.jpg', 'Images/Chokers/MidnightDevotion/photo2.jpg', 'Images/Chokers/MidnightDevotion/photo3.jpg','Images/Chokers/MidnightDevotion/photo4.jpg']
     },
-    {
+        {
+        id: 4,
+        name: 'Pierced Heart Choker',
+        category: 'chokers',
+        price: 15,
+        description: 'Pierced Heart, a love that bleeds, but never breaks The chain is made with a technique called chainmail and its made from Stainless Steel, the charm in the middle is made from Zinic Alloy.If you wish, you may include your preferred necklace length in the description so it can be made to fit you perfectly. ',
+        images: ['Images/Chokers/PiercedHeart/photo1.jpg', 'Images/Chokers/PiercedHeart/photo2.jpg', 'Images/Chokers/PiercedHeart/photo3.jpg']
+    },
+
+     {
         id: 8,
         name: 'Plague Doctor Earrings',
         category: 'earrings',
@@ -71,7 +72,24 @@ const products = [
         description: 'These earrings are inspired from the Plague Era, the hooks are made by Stainless Steel and the charms are made by Zinic Alloy.',
         images: ['Images/Earrings/PlagueDoctorEarrings.jpg']
     },
-    {
+        {
+        id: 8,
+        name: 'Obsidian Drop Earrings',
+        category: 'earrings',
+        price: 7,
+        description: 'Obsidian Drop, elegance carved in shadow. Everything is made from Stainless Steel.',
+        images: ['Images/Earrings/ObsidianDrop.jpg']
+    },
+            {
+        id: 8,
+        name: 'Chapel of Hearts Earrings',
+        category: 'earrings',
+        price: 6,
+        description: 'Chapel of Hearts, a sacred kind of love. The hook is made by Stainless Steel and the heart charm from Zinic Alloy.',
+        images: ['Images/Earrings/ChapelOfHearts.jpg']
+    },
+
+       {
         id: 9,
         name: 'Edgy Heart Earrings',
         category: 'earrings',
@@ -79,39 +97,67 @@ const products = [
         description: 'The hook is made by Stainless Steel and the charm is made from Zinic Alloy.',
         images: ['Images/Earrings/EdgyHeartEarrings.jpg']
     },
-    
-    // More products to fill the grid
-    {
-        id: 10,
-        name: 'Pentagram Necklace',
-        category: 'necklaces',
-        price: 28,
-        description: 'Witchy pentagram pendant, powerful και beautiful.',
-        images: ['', '', '']
-    },
-    {
-        id: 11,
-        name: 'Chain Choker',
-        category: 'chokers',
-        price: 24,
-        description: 'Multi-chain choker με gothic aesthetic, statement piece.',
-        images: ['', '', '']
-    },
-    {
-        id: 12,
-        name: 'Raven Earrings',
+
+             {
+        id: 8,
+        name: 'Black Roses Earrings',
         category: 'earrings',
-        price: 17,
-        description: 'Dark και mysterious raven σκουλαρίκια, unique design.',
-        images: ['', '', '']
-    }
+        price: 7,
+        description: 'Black Roses, bloom in the shadows. The hook is made from Stainless Steel and the spike is made from Zinic Alloy.',
+        images: ['Images/Earrings/BlackRoses.png']
+    },
+                 {
+        id: 8,
+        name: 'Bloodbound Cross Earrings',
+        category: 'earrings',
+        price: 7,
+        description: 'Bloodbound Cross, a faith that bleeds. The hook is made from Stainless Steel and the cross is made from Zinic Alloy.',
+        images: ['Images/Earrings/BloodBoundCross.jpg']
+    },
+
+                     {
+        id: 8,
+        name: 'Scarlet Rite Earrings',
+        category: 'earrings',
+        price: 7,
+        description: 'Scarlet Rite, a ritual sealed in red. The hook is made from Stainless Steel and the cross is made from Zinic Alloy.',
+        images: ['Images/Earrings/ScarletRite.jpg']
+    },
+    // Earrings
+
+    {
+        id: 4,
+        name: 'The Vampire Heart Necklace/Choker',
+        category: 'necklaces',
+        price: 13,
+        description: 'Vampire Heart, a heartbeat after midnight. The chain is hand-wired and made from Stainless Steel, the charm in the middle is made from Zinic Alloy.If you wish, you may include your preferred necklace length in the description so it can be made to fit you perfectly. It can be either a choker or a necklace ',
+        images: ['Images/Necklaces/VampireHeart/photo1.png']
+    },
+     {
+        id: 4,
+        name: 'Red Starry Heart Choker',
+        category: 'chokers',
+        price: 13,
+        description: 'Red Starry Heart, a desire written in red. This necklace features a hand-wired chain crafted from stainless steel, with bead-connecting rings made of zinc alloy. The charm is also made from zinc alloy. If you wish, you may include your preferred necklace length in the description so it can be made to fit you perfectly. ',
+        images: ['Images/Chokers/RedStarryHeart/photo1.jpg','Images/Chokers/RedStarryHeart/photo2.jpg']
+    },
+        {
+        id: 7,
+        name: 'Bat Earrings',
+        category: 'earrings',
+        price: 8,
+        description: 'Write me in the description if you want the Black or Red pair !! Only 1 pair included. The hook is made by Stainless Steel and the charm is made by Zinic Alloy.',
+        images: ['Images/Earrings/BatEarrings.jpg']
+    },
+    
+    
 ];
 
 // Payment info - YOU NEED TO REPLACE THESE WITH YOUR ACTUAL LINKS
 const paymentInfo = {
-    paypal: 'https://paypal.me/yourlink', // Replace with your actual PayPal.me link
-    revolut: 'https://revolut.me/yourlink', // Replace with your actual Revolut.me link
-    iban: 'GR00 0000 0000 0000 0000 0000 000' // Replace with your actual IBAN
+    paypal: 'https://www.paypal.me/Floxify', // Replace with your actual PayPal.me link
+    revolut: 'https://revolut.me/florentiadiam', // Replace with your actual Revolut.me link
+    iban: 'Alpha Bank- GR4701401170117002310028721' // Replace with your actual IBAN
 };
 
 // Render products
@@ -151,7 +197,7 @@ function createProductCard(product) {
        <div class="product-price">${product.price}€</div>
 
 <button class="buy-button" onclick="event.stopPropagation(); addToCartFromModal(${product.id})">
-  Προσθήκη στο καλάθι 🛒
+  Add to card 🛒
 </button>
 
 <button class="buy-button">View Details</button>
@@ -234,13 +280,14 @@ function openProductModal(product) {
 </button>
 
 <p style="color: var(--text-secondary); margin-top: 0.8rem; font-size: 0.95rem;">
-  Η πληρωμή ολοκληρώνεται από το καλάθι. 📦 Μεταφορικά Box Now: +${shipping}€
+  Η πληρωμή ολοκληρώνεται από το καλάθι. 
 </p>
             </div>
         </div>
     `;
     
-    modal.style.display = 'block';
+   // modal.style.display = 'block';
+modal.classList.add('is-open');
     
     // Initialize current carousel index
     window.currentCarouselIndex = 0;
@@ -520,24 +567,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = document.querySelector('.close-modal');
     
     closeBtn.onclick = () => {
-        modal.style.display = 'none';
+        modal.classList.remove('is-open');
         document.body.style.overflow = 'auto'; // Restore scrolling
     };
     
     window.onclick = (e) => {
         if (e.target === modal) {
-            modal.style.display = 'none';
+            modal.classList.remove('is-open');
             document.body.style.overflow = 'auto'; // Restore scrolling
         }
     };
     
     // Close on ESC key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.style.display === 'block') {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-    });
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+        modal.classList.remove('is-open');
+        document.body.style.overflow = 'auto';
+    }
+});
 });
 
 // Category filtering
@@ -924,3 +971,8 @@ function handleCartOrderSubmit(event, cart, total) {
     boxNow: 'Στοιχεία καλαθιού καταχωρήθηκαν ✅'
   });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('productModal')?.classList.remove('is-open');
+    document.getElementById('cartModal')?.classList.remove('is-open');
+});

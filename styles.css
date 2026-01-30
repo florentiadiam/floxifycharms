@@ -355,11 +355,21 @@ body {
     color: var(--text-primary);
 }
 
-.product-description {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    margin-bottom: 1rem;
-    line-height: 1.5;
+/* ΜΟΝΟ στα cards (grid) */
+.product-card .product-description{
+  display: -webkit-box;
+  -webkit-line-clamp: 3;      /* 3 γραμμές */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* Στο View Details (modal) ΘΕΛΩ ΟΛΟ το κείμενο */
+.modal-details .product-description{
+  display: block;
+  overflow: visible;
+  -webkit-line-clamp: unset;
+  -webkit-box-orient: unset;
+  text-overflow: unset;
 }
 
 .product-price {
@@ -370,8 +380,10 @@ body {
 }
 
 .buy-button {
-    width: 100%;
-    padding: 0.75rem;
+      width: 100%;
+    padding: 0.55rem 0.8rem;   /* 👈 πιο χαμηλό */
+    font-size: 1rem;          /* 👈 λίγο μικρότερο */
+    margin-bottom: 0.4rem;    /* 👈 controlled spacing */
     background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-dark));
     color: white;
     border: none;
@@ -489,32 +501,34 @@ body {
 }
 
 /* Modal */
+.modal.is-open {
+    display: flex;
+}
 .modal {
     display: none;
     position: fixed;
     z-index: 2000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: rgba(0, 0, 0, 0.9);
-    animation: fadeIn 0.3s ease;
-    overflow-y: auto;
+
+    /* ΚΕΝΤΡΑΡΙΣΜΑ (αλλά θα ενεργοποιείται μόνο όταν ανοίγει) */
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
 }
 
 .modal-content {
     background: var(--secondary-dark);
-    margin: 2% auto;
+   margin: 6% auto;
     padding: 0;
     border: 1px solid var(--accent-purple);
-    border-radius: 15px;
-    width: 90%;
-    max-width: 1100px;
+    border-radius: 18px;
+
+    width: 92%;
+    max-width: 1250px;   /* 👈 ΠΙΟ ΜΕΓΑΛΟ */
     max-height: 95vh;
+
     position: relative;
-    animation: slideIn 0.3s ease;
-    overflow-y: auto;
-    overflow-x: hidden;
 }
 
 /* Custom scrollbar for modal */
@@ -579,7 +593,9 @@ body {
 .image-carousel {
     position: relative;
     width: 100%;
-    height: 450px;
+    height: 65vh;      /* 👈 πιάνει μεγάλο μέρος της οθόνης */
+  max-height: 650px; /* 👈 να μη γίνεται τεράστιο σε πολύ μεγάλα screens */
+  min-height: 520px; /* 👈 να μην είναι μικρό */
     border-radius: 10px;
     overflow: hidden;
     background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
