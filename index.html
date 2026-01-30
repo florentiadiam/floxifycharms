@@ -23,6 +23,11 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <div class="nav-actions">
+            <button class="cart-btn" id="cartBtn" aria-label="Cart">
+    🛒  <span class="cart-count" id="cartCount">0</span>
+  </button>
+</div>
         </div>
     </nav>
 
@@ -30,7 +35,7 @@
     <section id="home" class="hero">
         <div class="hero-content">
             <h2 class="hero-title">Where Darkness Meets Beauty</h2>
-            <p class="hero-subtitle">Χειροποίητα κοσμήματα με gothic & witchy aesthetic</p>
+            <p class="hero-subtitle">Handmade Jewellery with gothic & witchy aesthetic ⋆˙⟡</p>
             <a href="#shop" class="cta-button">Explore Collection</a>
         </div>
         <div class="hero-overlay"></div>
@@ -107,6 +112,28 @@
         </div>
     </div>
 
+    <!-- Cart Modal -->
+<div class="modal" id="cartModal">
+  <div class="modal-content">
+    <span class="close-modal" id="closeCart">&times;</span>
+    <div class="modal-body">
+      <h2 style="font-family:'Cinzel',serif; margin-bottom: 1rem;">Καλάθι</h2>
+
+      <div id="cartItems"></div>
+
+      <div class="cart-summary">
+        <div class="row"><span>Υποσύνολο</span><span id="cartSubtotal">0€</span></div>
+        <div class="row"><span>Μεταφορικά (Box Now)</span><span id="cartShipping">3€</span></div>
+        <div class="row total"><span>Σύνολο</span><span id="cartTotal">0€</span></div>
+
+        <button class="submit-order-btn" id="checkoutBtn">Συνέχεια σε Παραγγελία</button>
+        <small style="display:block; margin-top:0.8rem; color: var(--text-secondary);">
+          ⚠️ Αποστολή μόνο με Box Now (+3€).
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
     <script src="script.js"></script>
 </body>
 </html>
