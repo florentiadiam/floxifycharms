@@ -1463,3 +1463,13 @@ body {
         padding: 0.5rem 1rem;
     }
 }
+.hero {
+  background-size: 120% 120%;
+  animation: bgMove 20s ease-in-out infinite alternate;
+
+}
+
+@keyframes bgMove {
+  from { background-position: 0% 50%; }
+  to   { background-position: 100% 50%; }
+}
