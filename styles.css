@@ -1473,3 +1473,30 @@ body {
   from { background-position: 0% 50%; }
   to   { background-position: 100% 50%; }
 }
+/* Mobile hero fix */
+@media (max-width: 768px) {
+  .hero{
+    height: auto;          /* αντί για fixed 100vh */
+    min-height: 100svh;    /* σωστό για iOS (small viewport height) */
+    padding: 8.5rem 1.2rem 3rem; /* χώρο κάτω από το fixed navbar */
+    overflow: hidden;      /* κρατάμε το aesthetic */
+    background-size: cover; /* μην “μικραίνει” */
+    background-position: center;
+  }
+
+  .hero-content{
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .hero-title{
+    font-size: 2.4rem;     /* πιο safe για mobile */
+    line-height: 1.05;
+  }
+
+  .hero-subtitle{
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+}
