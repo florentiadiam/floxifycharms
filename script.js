@@ -581,7 +581,10 @@ function showOrderConfirmation(orderData) {
     `;
     
     confirmation.innerHTML = `
-        <h4 style="margin-bottom: 0.5rem; font-family: 'Cinzel', serif;">✅ Το προϊόν προστέθηκε στο καλάθι!</h4>
+        <h4 style="margin-bottom: 0.5rem; font-family: 'Cinzel', serif;">✅ Στοιχεία Καταχωρήθηκαν!</h4>
+        <p style="font-size: 0.95rem; margin-bottom: 0.5rem;">
+            Αποστολή στο: <strong>${orderData.boxNow}</strong>
+        </p>
         <p style="font-size: 0.9rem; opacity: 0.9;">
             Επέλεξε τρόπο πληρωμής για να ολοκληρώσεις την παραγγελία!
         </p>
@@ -672,14 +675,19 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.getElementById('contactForm');
     
+    if (!contactForm) return; // Safety check
+    
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
-        // Get form values
-        const name = contactForm.querySelector('input[type="text"]').value;
-        const email = contactForm.querySelector('input[type="email"]').value;
-        const message = contactForm.querySelector('textarea').value;
+        // Get form values using name attributes
+        const formData = new FormData(contactForm);
+        const name = formData.get('name');
+        const email = formData.get('email');
+        const message = formData.get('message');
         const timestamp = new Date().toLocaleString('el-GR');
+        
+        console.log('Contact form data:', { name, email, message }); // Debug
         
         // Use the same service - NO NEW TEMPLATE NEEDED!
         const EMAILJS_SERVICE_ID = 'service_7a4ur3s';
@@ -699,7 +707,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 EMAILJS_OWNER_TEMPLATE,
                 {
                     // Use order template fields
-                    product: `Contact Form - ${name}`,
+                    product: `📬 Contact Form - ${name}`,
                     name: name,
                     email: email,
                     phone: '-',
@@ -725,7 +733,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             );
         } else {
-            // EmailJS not loaded - fallback
+            console.log('⚠️ EmailJS not loaded');
             alert('Ευχαριστώ για το μήνυμά σου! Θα επικοινωνήσω σύντομα! 🖤');
             contactForm.reset();
         }
