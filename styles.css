@@ -510,25 +510,27 @@ body {
     z-index: 2000;
     inset: 0;
     background: rgba(0, 0, 0, 0.9);
-
-    /* ΚΕΝΤΡΑΡΙΣΜΑ (αλλά θα ενεργοποιείται μόνο όταν ανοίγει) */
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    
+    /* Center modal in viewport */
+    align-items: flex-start;
+    padding: 1rem;
 }
 
 .modal-content {
     background: var(--secondary-dark);
-   margin: 6% auto;
+    margin: 2rem auto;
     padding: 0;
     border: 1px solid var(--accent-purple);
     border-radius: 18px;
 
-    width: 92%;
-    max-width: 1250px;   /* 👈 ΠΙΟ ΜΕΓΑΛΟ */
-    max-height: 95vh;
+    width: 95%;
+    max-width: 1250px;
+    max-height: none; /* Allow natural height */
 
     position: relative;
+    overflow: visible; /* Let modal itself handle scroll */
 }
 
 /* Custom scrollbar for modal */
@@ -1082,10 +1084,16 @@ body {
         grid-template-columns: 1fr;
     }
 
+    /* CRITICAL: Mobile modal fixes */
+    .modal {
+        padding: 0.5rem;
+    }
+
     .modal-content {
-        width: 95%;
-        max-height: 98vh;
-        margin: 1% auto;
+        width: 98%;
+        max-height: none;
+        margin: 0.5rem auto;
+        border-radius: 12px;
     }
 
     .modal-grid {
@@ -1093,15 +1101,15 @@ body {
     }
 
     .image-carousel {
-        height: 300px;
+        height: 250px;
     }
     
     .modal-image {
-        height: 300px;
+        height: 250px;
     }
 
     .modal-body {
-        padding: 1rem;
+        padding: 0.8rem;
     }
 
     .category-filter {
@@ -1114,48 +1122,51 @@ body {
     }
     
     .carousel-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 1.5rem;
+        width: 35px;
+        height: 35px;
+        font-size: 1.3rem;
     }
     
     .fullscreen-btn {
-        font-size: 0.85rem;
-        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+        top: 10px;
+        right: 10px;
     }
     
     .close-modal {
-        width: 35px;
-        height: 35px;
-        font-size: 1.5rem;
+        width: 32px;
+        height: 32px;
+        font-size: 1.3rem;
+        margin: 8px 8px 0 0;
     }
     
     /* Fullscreen mobile */
     .fullscreen-nav-btn {
-        width: 50px;
-        height: 50px;
-        font-size: 2rem;
-    }
-    
-    .fullscreen-nav-btn.prev {
-        left: 10px;
-    }
-    
-    .fullscreen-nav-btn.next {
-        right: 10px;
-    }
-    
-    .fullscreen-close {
-        top: 10px;
-        right: 10px;
         width: 45px;
         height: 45px;
         font-size: 1.8rem;
     }
     
+    .fullscreen-nav-btn.prev {
+        left: 5px;
+    }
+    
+    .fullscreen-nav-btn.next {
+        right: 5px;
+    }
+    
+    .fullscreen-close {
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+    }
+    
     .fullscreen-counter {
-        font-size: 1rem;
-        bottom: 80px;
+        font-size: 0.9rem;
+        bottom: 70px;
     }
     
     .fullscreen-indicators {
@@ -1171,6 +1182,43 @@ body {
     .fullscreen-caption {
         font-size: 1rem;
         padding: 0 1rem;
+    }
+
+    /* Mobile form improvements */
+    .order-form-section input,
+    .order-form-section textarea {
+        font-size: 16px; /* Prevents iOS zoom */
+    }
+
+    .order-form-section .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .submit-order-btn {
+        font-size: 1rem;
+        padding: 0.9rem;
+    }
+
+    /* Mobile cart improvements */
+    .cart-item {
+        grid-template-columns: 60px 1fr;
+        gap: 0.7rem;
+        padding: 0.7rem;
+    }
+
+    .cart-thumb {
+        width: 60px;
+        height: 60px;
+    }
+
+    .cart-item h4 {
+        font-size: 0.95rem;
+    }
+
+    .cart-qty {
+        grid-column: 2;
+        justify-content: flex-start;
+        margin-top: 0.5rem;
     }
 }
 
