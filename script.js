@@ -1,5 +1,41 @@
 // Sample product data - you'll replace with your actual products and images
 let savedScrollY = 0;
+
+// ===== LOAD BOX NOW WIDGET SCRIPT EARLY =====
+(function loadBoxNowScript() {
+  if (document.querySelector('script[data-boxnow-widget="1"]')) {
+    console.log('📦 Box Now script already loaded');
+    return;
+  }
+  
+  const script = document.createElement('script');
+  script.src = 'https://widget-cdn.boxnow.gr/map-widget/client/v1.js';
+  script.async = true;
+  script.dataset.boxnowWidget = "1";
+  
+  script.onload = function() {
+    console.log('✅ Box Now widget script loaded successfully');
+    console.log('📦 window.bnMapWidget:', typeof window.bnMapWidget);
+  };
+  
+  script.onerror = function() {
+    console.error('❌ Failed to load Box Now widget script from:', script.src);
+  };
+  
+  // Add to head immediately
+  if (document.head) {
+    document.head.appendChild(script);
+  } else {
+    // If head doesn't exist yet, wait for DOM
+    document.addEventListener('DOMContentLoaded', () => {
+      document.head.appendChild(script);
+    });
+  }
+  
+  console.log('📦 Loading Box Now widget script...');
+})();
+// ===== END BOX NOW SCRIPT LOADING =====
+
 const products = [
     
     // Necklaces
@@ -239,7 +275,42 @@ const products = [
         description: 'Write me in the description if you want the Black or Red pair !! Only 1 pair included. The hook is made by Stainless Steel and the charm is made by Zinic Alloy.',
         images: ['Images/Earrings/BatEarrings.jpg']
     },
-    
+            {
+        id: 26,
+        name: 'Starry Love Earrings',
+        category: 'earrings',
+        price: 6,
+        stock: 10,
+        description: 'The hook is made by Stainless Steel and the charm is made by Zinic Alloy.',
+        images: ['Images/Earrings/StarryLove.jpg']
+    },
+                {
+        id: 27,
+        name: 'The Swan',
+        category: 'chokers',
+        price: 20,
+        stock: 1,
+        description: 'Inspired by the swan, made to shine on you. Everything is made by stainless steel!.If you wish, you may include your preferred necklace length in the description so it can be made to fit you perfectly.',
+        images: ['Images/Chokers/Swan/photo1.jpg','Images/Chokers/Swan/photo2.jpg','Images/Chokers/Swan/photo3.jpg','Images/Chokers/Swan/photo4.jpg','Images/Chokers/Swan/photo5.jpg','Images/Chokers/Swan/photo6.jpg']
+    },
+                    {
+        id: 28,
+        name: 'Lotus Earrings',
+        category: 'earrings',
+        price: 6,
+        stock: 7,
+        description: 'Bloom with grace. The hook is made with Stainless Steel, the charm is made by Zinic Alloy.',
+        images: ['Images/Earrings/LotusEarrings.jpg']
+    },
+                        {
+        id: 29,
+        name: 'Lotus Necklace',
+        category: 'necklaces',
+        price: 15,
+        stock: 6,
+        description: 'Bloom with grace. The chain is hand-wired and made with Stainless Steel, the charm is made by Zinic Alloy.',
+        images: ['Images/necklaces/Lotus/photo1.jpg']
+    },
     
 ];
 
@@ -321,14 +392,22 @@ function openProductModal(product) {
     const modal = document.getElementById('productModal');
     const modalBody = document.getElementById('modalBody');
     
+    // Clear previous modal content first
+    modalBody.innerHTML = '';
+    
+    // Reset Box Now widget config
+    if (window._bn_map_widget_config) {
+        delete window._bn_map_widget_config;
+    }
+    
     // Lock body scroll AND make modal scrollable
-// SAVE scroll position
-savedScrollY = window.scrollY;
+    // SAVE scroll position
+    savedScrollY = window.scrollY;
 
-// Lock scroll without jump
-document.body.style.position = 'fixed';
-document.body.style.top = `-${savedScrollY}px`;
-document.body.style.width = '100%';
+    // Lock scroll without jump
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${savedScrollY}px`;
+    document.body.style.width = '100%';
     
     // Calculate total with Box Now shipping (δωρεάν για Box Now)
    const shipping = BOXNOW_SHIPPING;  // 3€
@@ -414,12 +493,16 @@ ${product.stock > 0
             </div>
         </div>
     `;
-    
-   // modal.style.display = 'block';
-modal.classList.add('is-open');
-    
-    // Initialize current carousel index
-    window.currentCarouselIndex = 0;
+  
+  // Initialize current carousel index BEFORE opening modal
+  window.currentCarouselIndex = 0;
+  
+  // NOW open the modal
+  modal.classList.add('is-open');
+  modal.style.display = 'block';
+  
+  // Box Now script is already loaded at page start - no need to load again
+  // Button uses onclick="openBoxNowPicker(event)" in HTML
 }
 
 // Carousel navigation
@@ -734,34 +817,42 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('productModal');
     const closeBtn = document.querySelector('.close-modal');
     
-    closeBtn.onclick = () => {
+    function closeModal() {
         modal.classList.remove('is-open');
+        
+        // Restore body scroll
         document.body.style.overflow = '';
         document.body.style.position = '';
         document.body.style.width = '';
+        document.body.style.top = '';
+        
+        // Restore scroll position
         window.scrollTo(0, savedScrollY);
-    };
+        
+        // Hide modal
+        modal.style.display = 'none';
+        
+        // Clear modal content to prevent issues
+        setTimeout(() => {
+            const modalBody = document.getElementById('modalBody');
+            if (modalBody) modalBody.innerHTML = '';
+        }, 300); // Wait for animation
+    }
+    
+    closeBtn.onclick = closeModal;
     
     window.onclick = (e) => {
         if (e.target === modal) {
-            modal.classList.remove('is-open');
-            document.body.style.overflow = '';
-            document.body.style.position = '';
-            document.body.style.width = '';
-            window.scrollTo(0, savedScrollY);
+            closeModal();
         }
     };
     
     // Close on ESC key
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('is-open')) {
-        modal.classList.remove('is-open');
-        document.body.style.overflow = '';
-        document.body.style.position = '';
-        document.body.style.width = '';
-        window.scrollTo(0, savedScrollY);
-    }
-});
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+            closeModal();
+        }
+    });
 });
 
 // Category filtering
@@ -1085,13 +1176,14 @@ function openCartCheckout() {
 
   const modal = document.getElementById('productModal');
   const modalBody = document.getElementById('modalBody');
+
+  // lock scroll (χωρίς fixed για να μην σε πετάει πάνω)
   document.body.style.overflow = 'hidden';
 
   const cartDescription = cart
     .map(i => `${i.name} x${i.qty} (${i.price}€)`)
     .join('<br>');
 
-  // ✅ Βάζουμε ΚΑΙ τη φόρμα ΚΑΙ το paymentSection μέσα στο modal
   modalBody.innerHTML = `
     <div class="modal-details">
       <h2 style="font-family:'Cinzel',serif;">Παραγγελία Καλαθιού</h2>
@@ -1114,8 +1206,8 @@ function openCartCheckout() {
       </p>
 
       <!-- Order Form (Cart) -->
-      <div class="order-form-section">
-        <h3 style="font-family: 'Cinzel', serif; font-size: 1.5rem; margin-bottom: 1rem; color: var(--accent-purple-light);">
+      <div class="order-form-section" id="cartFormSection">
+        <h3 style="font-family:'Cinzel',serif; font-size:1.5rem; margin-bottom:1rem; color: var(--accent-purple-light);">
           Στοιχεία Παραγγελίας
         </h3>
         <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.95rem;">
@@ -1138,29 +1230,38 @@ function openCartCheckout() {
             <input type="tel" id="customerPhone" required placeholder="69xxxxxxxx" pattern="[0-9]{10}">
           </div>
 
-          <div class="form-group">
-            <label>Box Now Locker *</label>
-            <input
-              type="text"
-              id="boxNowStation"
-              required
-              placeholder="Αναζήτησε το Box Now σου... (π.χ. Θεσσαλονίκη Τσιμισκή)"
-              list="boxNowStations"
-              autocomplete="off"
-            >
-            <datalist id="boxNowStations">
-              <option value="Θεσσαλονίκη - Τσιμισκή 57">
-              <option value="Θεσσαλονίκη - Εγνατία 154">
-              <option value="Θεσσαλονίκη - Μητροπόλεως 44">
-              <option value="Θεσσαλονίκη - Αγίας Σοφίας 68">
-              <option value="Θεσσαλονίκη - Βασ. Όλγας 122">
-              <option value="Θεσσαλονίκη - Καραολή Δημητρίου 54">
-              <option value="Θεσσαλονίκη - 25ης Μαρτίου 34">
-            </datalist>
-            <small style="color: var(--text-secondary); font-size: 0.85rem; display: block; margin-top: 0.3rem;">
-              💡 Βρες το κοντινότερο Box Now στο <a href="https://www.boxnow.gr/find-a-locker" target="_blank" style="color: var(--accent-purple);">boxnow.gr</a>
-            </small>
-          </div>
+ <div class="form-group">
+  <label>Box Now Locker *</label>
+
+  <!-- εμφανές πεδίο (readable) -->
+<input
+  type="text"
+  id="boxNowStation"
+  required
+  placeholder="π.χ. BOX NOW Σύνταγμα, Μητροπόλεως 1, 10557"
+  autocomplete="off"
+  style="position:relative; z-index:9999; pointer-events:auto !important; cursor:text !important;"
+>
+
+  <!-- κρυφό, για “επαλήθευση” -->
+  <input type="hidden" id="boxNowLockerId" />
+
+<button
+  type="button"
+  class="submit-order-btn"
+  id="openBoxNowWidgetBtn"
+  onclick="openBoxNowPicker(event)"
+  style="margin-top:0.8rem; position:relative; z-index:9999; pointer-events:auto;"
+>
+  🗺️ Βρες το κοντινότερο Box Now
+</button>
+
+  <small style="color: var(--text-secondary); font-size: 0.85rem; display:block; margin-top:0.6rem;">
+    * Γράψε το Box Now locker χειροκίνητα ή πάτα το κουμπί για βοήθεια.
+  </small>
+
+  <!-- εδώ θα μπει ο χάρτης (iframe mode) -->
+<div id="boxnowmap" style="margin-top:1rem; display:none; height: 450px; width: 100%;"></div></div>
 
           <div class="form-group">
             <label>Σχόλια παραγγελίας (προαιρετικό)</label>
@@ -1180,22 +1281,49 @@ function openCartCheckout() {
           <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.95rem;">
             <strong>Σύνολο:</strong> ${total}€ (με μεταφορικά Box Now +${shipping}€)
           </p>
+
           <div class="payment-buttons">
             <a href="${paymentInfo.paypal}/${total}" target="_blank" class="payment-btn">
               💳 Πληρωμή με PayPal (${total}€)
             </a>
+
             <a href="${paymentInfo.revolut}/${total}" target="_blank" class="payment-btn">
               💜 Πληρωμή με Revolut (${total}€)
             </a>
-            <button class="payment-btn" onclick="showBankDetails()">
-              🏦 Τραπεζική κατάθεση
+
+            <button type="button" class="payment-btn" id="bankBtn">
+              🏦 Τραπεζική κατάθεση / IRIS
             </button>
           </div>
 
-          <div id="bankDetails" style="display:none; margin-top: 1.5rem; padding: 1.5rem; background: var(--primary-dark); border-radius: 8px; border: 1px solid var(--accent-purple);">
-            <h4 style="color: var(--accent-purple-light); margin-bottom: 1rem;">Στοιχεία Τραπεζικού Λογαριασμού:</h4>
-            <p style="font-size: 1.1rem; margin-bottom: 0.5rem;"><strong>IBAN:</strong> ${paymentInfo.iban}</p>
-            <p style="font-size: 1.1rem; margin-bottom: 0.5rem;"><strong>Ποσό:</strong> ${total}€</p>
+          <!-- IRIS / Bank details -->
+          <div id="bankDetails" style="display:none; margin-top: 1.2rem; padding: 1.2rem; background: var(--primary-dark); border-radius: 8px; border: 1px solid var(--accent-purple);">
+            <h4 style="color: var(--accent-purple-light); margin-bottom: 1rem;">Στοιχεία Πληρωμής (IRIS/Κατάθεση):</h4>
+
+            <p style="font-size: 1.05rem; margin-bottom: 0.5rem;"><strong>IBAN/IRIS:</strong> ${paymentInfo.iban}</p>
+            <p style="font-size: 1.05rem; margin-bottom: 0.5rem;"><strong>Ποσό:</strong> ${total}€</p>
+
+            <hr style="border:0; border-top:1px solid var(--border-color); margin: 1rem 0;">
+
+            <label style="display:block; margin-bottom:0.4rem;">Κωδικός συναλλαγής (προαιρετικό)</label>
+            <input id="irisRef" type="text" placeholder="π.χ. RF123..." style="
+              width:100%;
+              padding:0.9rem;
+              background: var(--primary-dark);
+              border: 2px solid var(--border-color);
+              color: var(--text-primary);
+              font-family: 'Cormorant Garamond', serif;
+              font-size: 1rem;
+              border-radius: 8px;
+            ">
+
+            <button type="button" class="submit-order-btn" id="confirmIrisBtn" style="margin-top:1rem;">
+              ✅ Ολοκλήρωσα την πληρωμή μου (IRIS)
+            </button>
+
+            <p style="color: var(--text-secondary); font-size:0.9rem; margin-top:0.6rem;">
+              * Με το κουμπί αυτό θα σταλεί email επιβεβαίωσης σε εμένα για να ελέγξω την πληρωμή.
+            </p>
           </div>
 
           <p style="color: var(--accent-purple-light); margin-top: 1.5rem; font-size: 0.95rem; text-align: center; background: rgba(139, 92, 246, 0.1); padding: 1rem; border-radius: 8px;">
@@ -1205,46 +1333,342 @@ function openCartCheckout() {
         </div>
       </div>
     </div>
+    
   `;
+  
 
+  // OPEN modal σωστά
+  modal.classList.add('is-open');
   modal.style.display = 'block';
+  
+  // Ensure Box Now input is editable
+  setTimeout(() => {
+    const boxNowInput = document.getElementById('boxNowStation');
+    if (boxNowInput) {
+      boxNowInput.removeAttribute('readonly');
+      boxNowInput.removeAttribute('disabled');
+      boxNowInput.style.pointerEvents = 'auto';
+      boxNowInput.style.cursor = 'text';
+      console.log('✅ Box Now input is now editable');
+    }
+  }, 100);
 
-  // submit handler (Cart)
-  const form = document.getElementById('cartOrderForm');
-  form.onsubmit = (e) => handleCartOrderSubmit(e, cart, total);
+  // 1) Submit form -> δείξε payments
+  const cartOrderForm = document.getElementById('cartOrderForm');
+  const formSection = document.getElementById('cartFormSection');
+  const paymentSection = document.getElementById('paymentSection');
+
+if (cartOrderForm) {
+  cartOrderForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    // ✅ Check if Box Now locker is filled (either from widget OR manual input)
+    const stationInput = document.getElementById('boxNowStation')?.value?.trim();
+    
+    if (!stationInput) {
+      alert('📍 Παρακαλώ συμπλήρωσε το Box Now locker!\n\nΠάτα το κουμπί "Βρες το κοντινότερο Box Now" για βοήθεια.');
+      document.getElementById('boxNowStation')?.focus();
+      return;
+    }
+    
+    // Validate format (should contain at least some text)
+    if (stationInput.length < 10) {
+      alert('⚠️ Το Box Now locker φαίνεται ελλιπές.\n\nΠαράδειγμα σωστής μορφής:\nBOX NOW Σύνταγμα, Μητροπόλεως 1, 10557');
+      document.getElementById('boxNowStation')?.focus();
+      return;
+    }
+
+    // αν όλα ΟΚ → πάμε πληρωμή
+    if (formSection) formSection.style.display = 'none';
+    if (paymentSection) paymentSection.style.display = 'block';
+  });
 }
+function loadBoxNowWidgetScriptOnce() {
+  return new Promise((resolve, reject) => {
+    // αν υπάρχει ήδη, οκ
+    if (document.getElementById('boxnowWidgetScript')) return resolve();
 
-function handleCartOrderSubmit(event, cart, total) {
-  event.preventDefault();
-
-  const orderData = {
-    products: cart,
-    name: document.getElementById('customerName').value,
-    email: document.getElementById('customerEmail').value,
-    phone: document.getElementById('customerPhone').value,
-    boxNow: document.getElementById('boxNowStation').value,
-    notes: document.getElementById('orderNotes').value,
-    total: total,
-    shipping: BOXNOW_SHIPPING,
-    timestamp: new Date().toLocaleString('el-GR')
-  };
-
-  console.log('ORDER (CART):', orderData);
-
-  // ✅ κρύψε φόρμα ΜΕΣΑ στο modal
-  const modalBody = document.getElementById('modalBody');
-  const formSection = modalBody.querySelector('.order-form-section');
-  const paymentSection = modalBody.querySelector('#paymentSection');
-
-  formSection.style.display = 'none';
-  paymentSection.style.display = 'block';
-
-  showOrderConfirmation({
-    boxNow: 'Στοιχεία καλαθιού καταχωρήθηκαν ✅'
+    const s = document.createElement('script');
+    s.id = 'boxnowWidgetScript';
+    s.src = 'https://widget-cdn.boxnow.bg/map-widget/client/v5.js';
+    s.async = true;
+    s.defer = true;
+    s.onload = () => resolve();
+    s.onerror = () => reject(new Error('BoxNow widget failed to load'));
+    document.head.appendChild(s);
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('productModal')?.classList.remove('is-open');
-    document.getElementById('cartModal')?.classList.remove('is-open');
-});
+  // 2) Bank button -> δείξε bank details
+  const bankBtn = document.getElementById('bankBtn');
+  const bankDetails = document.getElementById('bankDetails');
+  if (bankBtn && bankDetails) {
+    bankBtn.addEventListener('click', () => {
+      bankDetails.style.display = 'block';
+      bankDetails.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }
+
+  // 3) IRIS confirm -> στέλνει email + αδειάζει καλάθι ΜΟΝΟ εδώ
+  const confirmBtn = document.getElementById('confirmIrisBtn');
+  if (confirmBtn) {
+    confirmBtn.addEventListener('click', () => {
+      const irisRef = (document.getElementById('irisRef')?.value || '').trim();
+
+      // Πάρε στοιχεία πελάτη από τη φόρμα
+      const name = document.getElementById('customerName')?.value || '';
+      const email = document.getElementById('customerEmail')?.value || '';
+      const phone = document.getElementById('customerPhone')?.value || '';
+      const boxNow = document.getElementById('boxNowStation')?.value || '';
+      const notes = document.getElementById('orderNotes')?.value || '';
+      const timestamp = new Date().toLocaleString('el-GR');
+
+      if (!name || !email || !phone || !boxNow) {
+        alert('Συμπλήρωσε πρώτα τα στοιχεία παραγγελίας 🖤');
+        return;
+      }
+
+      if (typeof emailjs === 'undefined') {
+        alert('⚠️ Το EmailJS δεν φορτώθηκε. Δοκίμασε ξανά.');
+        return;
+      }
+
+      confirmBtn.disabled = true;
+      const oldText = confirmBtn.textContent;
+      confirmBtn.textContent = 'Αποστολή...';
+
+      const EMAILJS_SERVICE_ID = 'service_7a4ur3s';
+      const EMAILJS_OWNER_TEMPLATE = 'template_8zlfh1s';
+      const EMAILJS_PUBLIC_KEY = 'Ukxnw0aPy-DTgUeOL';
+      const OWNER_EMAIL = 'florentiad@gmail.com';
+
+      const itemsText = cart.map(i => `${i.name} x${i.qty} (${i.price}€)`).join(' | ');
+
+      emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_OWNER_TEMPLATE,
+        {
+          to_email: OWNER_EMAIL,
+          product: `🧾 IRIS/CART: ${itemsText}`,
+          total: `${total}€`,
+          name: name,
+          email: email,
+          phone: phone,
+          boxNow: boxNow,
+          notes: `Payment: IRIS/Κατάθεση\nIRIS Ref: ${irisRef || '-'}\nNotes: ${notes || '-'}`,
+          timestamp: timestamp
+        },
+        EMAILJS_PUBLIC_KEY
+      ).then(() => {
+        // ✅ ΑΔΕΙΑΖΕΙ το καλάθι ΜΟΝΟ όταν πατηθεί αυτό (manual confirmation)
+        saveCart([]);
+        updateCartCount();
+
+        alert('✅ Επιβεβαίωση εστάλη! Θα ελέγξω την πληρωμή και θα προχωρήσω την αποστολή 🖤');
+
+        // κλείσιμο modal
+        modal.classList.remove('is-open');
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }).catch(() => {
+        alert('❌ Δεν στάλθηκε το email. Δοκίμασε ξανά.');
+        confirmBtn.disabled = false;
+        confirmBtn.textContent = oldText;
+      });
+    });
+  }
+  window.openBoxNowPicker = function (e) {
+  if (e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  
+  console.log('🗺️ Opening Box Now picker...');
+
+  const mapEl = document.getElementById('boxnowmap');
+  if (!mapEl) {
+    console.error('❌ boxnowmap element not found!');
+    alert('Δεν βρέθηκε το Box Now map element. Παρακαλώ ανανεώστε τη σελίδα.');
+    return;
+  }
+
+  // Show map container
+  mapEl.style.display = 'block';
+  mapEl.style.position = 'relative';
+  mapEl.style.zIndex = '9999';
+  mapEl.style.pointerEvents = 'auto';
+  mapEl.style.minHeight = '500px';
+  
+  console.log('✅ Map container visible');
+
+  // Configure Box Now widget
+  window._bn_map_widget_config = {
+    parentElement: "#boxnowmap",
+    type: "iframe",
+    gps: "yes",
+    autoclose: "no",
+    autoselect: "yes",
+    afterSelect: function(selected) {
+      console.log('🎯 Locker selected:', selected);
+      
+      const lockerId = selected.boxnowLockerId;
+      const address = selected.boxnowLockerAddressLine1;
+      const postal = selected.boxnowLockerPostalCode;
+      const name = selected.name || selected.boxnowLockerName || "BOX NOW Locker";
+
+      const stationInput = document.getElementById('boxNowStation');
+      const lockerIdInput = document.getElementById('boxNowLockerId');
+
+      if (stationInput) {
+        stationInput.value = `${name} — ${address} (${postal})`;
+        console.log('✅ Address filled:', stationInput.value);
+      }
+      if (lockerIdInput) {
+        lockerIdInput.value = lockerId;
+        console.log('✅ Locker ID saved:', lockerId);
+      }
+
+      // Hide map after selection
+      setTimeout(() => {
+        mapEl.style.display = 'none';
+        console.log('✅ Map hidden after selection');
+      }, 800);
+    }
+  };
+  
+  console.log('✅ Widget config set');
+
+  // Try multiple initialization methods
+  let initialized = false;
+  
+  // Method 1: Standard bnMapWidget.init()
+  if (window.bnMapWidget && typeof window.bnMapWidget.init === 'function') {
+    console.log('🚀 Method 1: Using bnMapWidget.init()');
+    try {
+      window.bnMapWidget.init();
+      initialized = true;
+      console.log('✅ Widget initialized!');
+    } catch (err) {
+      console.error('❌ Method 1 failed:', err);
+    }
+  }
+  
+  // Method 2: Try window.BnMapWidget (capital B)
+  if (!initialized && window.BnMapWidget && typeof window.BnMapWidget.init === 'function') {
+    console.log('🚀 Method 2: Using BnMapWidget.init()');
+    try {
+      window.BnMapWidget.init();
+      initialized = true;
+      console.log('✅ Widget initialized (Method 2)!');
+    } catch (err) {
+      console.error('❌ Method 2 failed:', err);
+    }
+  }
+  
+  // Method 3: Show helpful manual input guide (Box Now API requires partnership)
+  if (!initialized) {
+    console.log('ℹ️ Box Now widget requires API partnership - showing manual input guide');
+    
+    mapEl.innerHTML = `
+      <div style="padding: 2rem; background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(109, 40, 217, 0.1)); border-radius: 15px; border: 2px solid var(--accent-purple);">
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <h3 style="color: var(--accent-purple); margin-bottom: 0.5rem; font-size: 1.5rem;">
+            📍 Επιλογή Box Now Locker
+          </h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">
+            Γράψε το Box Now locker που προτιμάς στο πεδίο παραπάνω
+          </p>
+        </div>
+        
+        <div style="background: var(--secondary-dark); padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
+          <h4 style="color: var(--accent-purple-light); margin-bottom: 1rem; font-size: 1.1rem;">
+            💡 Πώς να βρεις το κοντινότερο Box Now:
+          </h4>
+          <ol style="color: var(--text-primary); line-height: 1.8; margin-left: 1.2rem;">
+            <li>Πήγαινε στο <a href="https://boxnow.gr/en/locker-finder" target="_blank" style="color: var(--accent-purple); text-decoration: underline; font-weight: 600;">boxnow.gr/en/locker-finder</a></li>
+            <li>Βρες το πιο κοντινό σου locker</li>
+            <li>Γράψε το όνομα και τη διεύθευση στο πεδίο παραπάνω</li>
+          </ol>
+        </div>
+        
+        <div style="background: rgba(139, 92, 246, 0.15); padding: 1.5rem; border-radius: 10px; border: 1px solid var(--accent-purple); margin-bottom: 1.5rem;">
+          <h4 style="color: var(--accent-purple-light); margin-bottom: 0.8rem;">
+            📝 Παράδειγμα σωστής εισαγωγής:
+          </h4>
+          <p style="color: var(--text-primary); font-family: monospace; background: var(--secondary-dark); padding: 1rem; border-radius: 8px; margin: 0; font-size: 0.95rem;">
+            BOX NOW Σύνταγμα, Μητροπόλεως 1, 10557
+          </p>
+        </div>
+        
+        <div style="text-align: center;">
+          <button 
+            onclick="document.getElementById('boxnowmap').style.display='none'; document.getElementById('boxNowStation').focus();"
+            style="padding: 1rem 3rem; background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-dark)); color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 1.1rem; font-weight: 600; box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4); transition: transform 0.2s ease;"
+            onmouseover="this.style.transform='translateY(-2px)'"
+            onmouseout="this.style.transform='translateY(0)'"
+          >
+            ✅ Εντάξει, το κατάλαβα!
+          </button>
+        </div>
+      </div>
+    `;
+    
+    initialized = true;
+  }
+  
+  // If nothing worked, show helpful manual input guide
+  if (!initialized) {
+    console.log('ℹ️ Showing manual Box Now input guide');
+    
+    mapEl.innerHTML = `
+      <div style="padding: 2rem; background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(109, 40, 217, 0.1)); border-radius: 15px; border: 2px solid var(--accent-purple);">
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <h3 style="color: var(--accent-purple); margin-bottom: 0.5rem; font-size: 1.5rem;">
+            📍 Επιλογή Box Now Locker
+          </h3>
+          <p style="color: var(--text-secondary); font-size: 0.95rem;">
+            Γράψε το Box Now locker που προτιμάς στο πεδίο παραπάνω
+          </p>
+        </div>
+        
+        <div style="background: var(--secondary-dark); padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
+          <h4 style="color: var(--accent-purple-light); margin-bottom: 1rem; font-size: 1.1rem;">
+            💡 Πώς να βρεις το κοντινότερο Box Now:
+          </h4>
+          <ol style="color: var(--text-primary); line-height: 1.8; margin-left: 1.2rem;">
+            <li>Πήγαινε στο <a href="https://www.boxnow.gr/lockers" target="_blank" style="color: var(--accent-purple); text-decoration: underline; font-weight: 600;">www.boxnow.gr/lockers</a></li>
+            <li>Βρες το πιο κοντινό σου locker</li>
+            <li>Γράψε το όνομα και τη διεύθευση στο πεδίο παραπάνω</li>
+          </ol>
+        </div>
+        
+        <div style="background: rgba(139, 92, 246, 0.15); padding: 1.5rem; border-radius: 10px; border: 1px solid var(--accent-purple); margin-bottom: 1.5rem;">
+          <h4 style="color: var(--accent-purple-light); margin-bottom: 0.8rem;">
+            📝 Παράδειγμα σωστής εισαγωγής:
+          </h4>
+          <p style="color: var(--text-primary); font-family: monospace; background: var(--secondary-dark); padding: 1rem; border-radius: 8px; margin: 0; font-size: 0.95rem;">
+            BOX NOW Σύνταγμα, Μητροπόλεως 1, 10557
+          </p>
+        </div>
+        
+        <div style="text-align: center;">
+          <button 
+            onclick="document.getElementById('boxnowmap').style.display='none'; document.getElementById('boxNowStation').focus();"
+            style="padding: 1rem 3rem; background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-dark)); color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 1.1rem; font-weight: 600; box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4); transition: transform 0.2s ease;"
+            onmouseover="this.style.transform='translateY(-2px)'"
+            onmouseout="this.style.transform='translateY(0)'"
+          >
+            ✅ Εντάξει, το κατάλαβα!
+          </button>
+        </div>
+      </div>
+    `;
+  }
+  
+  // Reset selection
+  const station = document.getElementById('boxNowStation');
+  const lockerId = document.getElementById('boxNowLockerId');
+  if (station) station.value = '';
+  if (lockerId) lockerId.value = '';
+};
+}
