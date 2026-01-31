@@ -490,35 +490,77 @@ function handleOrderSubmit(event, productId, productName, total) {
 
 // Send order email (you'll need to set up EmailJS or similar service)
 function sendOrderEmail(orderData) {
-    // This is a placeholder - you'll need to implement actual email sending
-    // Options: EmailJS, FormSubmit, your own backend, etc.
+    // EmailJS Configuration
+    const EMAILJS_SERVICE_ID = 'service_7a4ur3s';
+    const EMAILJS_OWNER_TEMPLATE = 'template_8zlfh1s';
+    const EMAILJS_CUSTOMER_TEMPLATE = 'template_lxrchci';
+    const EMAILJS_PUBLIC_KEY = 'Ukxnw0aPy-DTgUeOL';
+    const OWNER_EMAIL = 'florentiad@gmail.com';
     
-    console.log('Order received:', orderData);
-    
-    // Example with mailto (basic, not ideal but works)
-    // You can replace this with EmailJS later
-    const subject = `Νέα Παραγγελία: ${orderData.product}`;
-    const body = `
-ΝΕΑΗ ΠΑΡΑΓΓΕΛΙΑ - Floxify Charms
-
-Προϊόν: ${orderData.product}
-Τιμή: ${orderData.total}€
-
-ΣΤΟΙΧΕΙΑ ΠΕΛΑΤΗ:
-Όνομα: ${orderData.name}
-Email: ${orderData.email}
-Τηλέφωνο: ${orderData.phone}
-Box Now: ${orderData.boxNow}
-
-Σχόλια: ${orderData.notes || 'Κανένα'}
-
-Ημερομηνία: ${orderData.timestamp}
-    `;
+    // Check if EmailJS is loaded
+    if (typeof emailjs !== 'undefined') {
+        
+        // 1. SEND EMAIL TO YOU (Owner) - Παραγγελία notification
+        emailjs.send(
+            EMAILJS_SERVICE_ID,
+            EMAILJS_OWNER_TEMPLATE,
+            {
+                to_email: OWNER_EMAIL,  // ← Σε ΕΣΕΝΑ
+                product: orderData.product,
+                total: orderData.total,
+                name: orderData.name,
+                email: orderData.email,
+                phone: orderData.phone,
+                boxNow: orderData.boxNow,
+                notes: orderData.notes || 'Κανένα',
+                timestamp: orderData.timestamp
+            },
+            EMAILJS_PUBLIC_KEY
+        ).then(
+            function(response) {
+                console.log('✅ Owner notification sent!', response);
+            },
+            function(error) {
+                console.log('❌ Owner email failed:', error);
+            }
+        );
+        
+        // 2. SEND EMAIL TO CUSTOMER - Confirmation
+        emailjs.send(
+            EMAILJS_SERVICE_ID,
+            EMAILJS_CUSTOMER_TEMPLATE,
+            {
+                to_email: orderData.email,  // ← Στον ΠΕΛΑΤΗ
+                product: orderData.product,
+                total: orderData.total,
+                name: orderData.name,
+                email: orderData.email,
+                phone: orderData.phone,
+                boxNow: orderData.boxNow,
+                notes: orderData.notes || 'Κανένα',
+                timestamp: orderData.timestamp
+            },
+            EMAILJS_PUBLIC_KEY
+        ).then(
+            function(response) {
+                console.log('✅ Customer confirmation sent!', response);
+            },
+            function(error) {
+                console.log('❌ Customer email failed:', error);
+                // Don't alert customer - they still got the order through
+            }
+        );
+        
+    } else {
+        console.log('⚠️ EmailJS not loaded - order saved to localStorage');
+    }
     
     // Store in localStorage as backup
     const orders = JSON.parse(localStorage.getItem('floxifyOrders') || '[]');
     orders.push(orderData);
     localStorage.setItem('floxifyOrders', JSON.stringify(orders));
+    
+    console.log('📦 Order saved:', orderData);
 }
 
 // Show order confirmation
@@ -539,10 +581,7 @@ function showOrderConfirmation(orderData) {
     `;
     
     confirmation.innerHTML = `
-        <h4 style="margin-bottom: 0.5rem; font-family: 'Cinzel', serif;">✅ Στοιχεία Καταχωρήθηκαν!</h4>
-        <p style="font-size: 0.95rem; margin-bottom: 0.5rem;">
-            Αποστολή στο: <strong>${orderData.boxNow}</strong>
-        </p>
+        <h4 style="margin-bottom: 0.5rem; font-family: 'Cinzel', serif;">✅ Το προϊόν προστέθηκε στο καλάθι!</h4>
         <p style="font-size: 0.9rem; opacity: 0.9;">
             Επέλεξε τρόπο πληρωμής για να ολοκληρώσεις την παραγγελία!
         </p>
@@ -635,8 +674,61 @@ document.addEventListener('DOMContentLoaded', () => {
     
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        alert('Ευχαριστώ για το μήνυμά σου! Θα επικοινωνήσω σύντομα! 🖤');
-        contactForm.reset();
+        
+        // Get form values
+        const name = contactForm.querySelector('input[type="text"]').value;
+        const email = contactForm.querySelector('input[type="email"]').value;
+        const message = contactForm.querySelector('textarea').value;
+        const timestamp = new Date().toLocaleString('el-GR');
+        
+        // Use the same service - NO NEW TEMPLATE NEEDED!
+        const EMAILJS_SERVICE_ID = 'service_7a4ur3s';
+        const EMAILJS_OWNER_TEMPLATE = 'template_8zlfh1s'; // Reuse owner template
+        const EMAILJS_PUBLIC_KEY = 'Ukxnw0aPy-DTgUeOL';
+        
+        // Send email via EmailJS
+        if (typeof emailjs !== 'undefined') {
+            // Show loading state
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Αποστολή...';
+            submitBtn.disabled = true;
+            
+            emailjs.send(
+                EMAILJS_SERVICE_ID,
+                EMAILJS_OWNER_TEMPLATE,
+                {
+                    // Use order template fields
+                    product: `Contact Form - ${name}`,
+                    name: name,
+                    email: email,
+                    phone: '-',
+                    boxNow: '-',
+                    notes: message,
+                    total: '-',
+                    timestamp: timestamp
+                },
+                EMAILJS_PUBLIC_KEY
+            ).then(
+                function(response) {
+                    console.log('✅ Contact form sent!', response);
+                    alert('Ευχαριστώ για το μήνυμά σου! Θα επικοινωνήσω σύντομα! 🖤');
+                    contactForm.reset();
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                },
+                function(error) {
+                    console.log('❌ Contact form failed:', error);
+                    alert('Ωχ! Κάτι πήγε στραβά. Δοκίμασε ξανά ή στείλε μου email απευθείας στο florentiad@gmail.com');
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }
+            );
+        } else {
+            // EmailJS not loaded - fallback
+            alert('Ευχαριστώ για το μήνυμά σου! Θα επικοινωνήσω σύντομα! 🖤');
+            contactForm.reset();
+        }
     });
 });
 
