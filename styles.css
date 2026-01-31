@@ -1463,24 +1463,38 @@ body {
         padding: 0.5rem 1rem;
     }
 }
-.hero {
+.hero{
+  position: relative; /* σημαντικό για fog overlays */
   background-size: 120% 120%;
   animation: bgMove 20s ease-in-out infinite alternate;
-
 }
 
-@keyframes bgMove {
+@keyframes bgMove{
   from { background-position: 0% 50%; }
   to   { background-position: 100% 50%; }
 }
-/* Mobile hero fix */
-@media (max-width: 768px) {
+
+/* Mobile adjustments (όλα μαζί για να μην μπερδεύεσαι) */
+@media (max-width: 768px){
+
+  .stock-badge{
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+    top: 8px;
+    right: 8px;
+  }
+
+  .stock-info{
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+
   .hero{
-    height: auto;          /* αντί για fixed 100vh */
-    min-height: 100svh;    /* σωστό για iOS (small viewport height) */
-    padding: 8.5rem 1.2rem 3rem; /* χώρο κάτω από το fixed navbar */
-    overflow: hidden;      /* κρατάμε το aesthetic */
-    background-size: cover; /* μην “μικραίνει” */
+    height: auto;
+    min-height: 100svh;
+    padding: 8.5rem 1.2rem 3rem;
+    overflow: hidden;
+    background-size: cover;
     background-position: center;
   }
 
@@ -1491,7 +1505,7 @@ body {
   }
 
   .hero-title{
-    font-size: 2.4rem;     /* πιο safe για mobile */
+    font-size: 2.4rem;
     line-height: 1.05;
   }
 
