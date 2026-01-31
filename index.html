@@ -91,7 +91,13 @@ As a little girl, I collected different types of jewellery—it was my biggest o
     <section id="contact" class="contact-section">
         <div class="container">
             <h2 class="section-title">Get in Touch</h2>
-            <form class="contact-form" id="contactForm">
+            <form class="contact-form" action="https://formsubmit.co/florentiad@gmail.com" method="POST">
+                <!-- FormSubmit Configuration -->
+                <input type="hidden" name="_subject" value="📬 Νέο Μήνυμα από Floxify Charms">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="box">
+                <input type="hidden" name="_autoresponse" value="Ευχαριστώ για το μήνυμά σου! Θα επικοινωνήσω μαζί σου σύντομα. 🖤 - Floxify Charms">
+                
                 <div class="form-group">
                     <input type="text" name="name" placeholder="Το όνομά σου" required>
                 </div>
@@ -102,6 +108,10 @@ As a little girl, I collected different types of jewellery—it was my biggest o
                     <textarea name="message" placeholder="Το μήνυμά σου..." rows="5" required></textarea>
                 </div>
                 <button type="submit" class="submit-btn">Send Message</button>
+                
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem; text-align: center;">
+                    * Θα λάβεις confirmation email μετά την αποστολή! 📧
+                </p>
             </form>
         </div>
     </section>
