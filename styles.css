@@ -518,6 +518,10 @@ body {
     padding: 1rem;
 }
 
+.modal.is-open {
+    display: block;
+}
+
 .modal-content {
     background: var(--secondary-dark);
     margin: 2rem auto;

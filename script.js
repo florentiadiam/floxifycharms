@@ -212,8 +212,10 @@ function openProductModal(product) {
     const modal = document.getElementById('productModal');
     const modalBody = document.getElementById('modalBody');
     
-    // Prevent body scroll when modal is open
+    // Lock body scroll AND make modal scrollable
     document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
     
     // Calculate total with Box Now shipping (δωρεάν για Box Now)
    const shipping = BOXNOW_SHIPPING;  // 3€
@@ -568,13 +570,17 @@ document.addEventListener('DOMContentLoaded', () => {
     
     closeBtn.onclick = () => {
         modal.classList.remove('is-open');
-        document.body.style.overflow = 'auto'; // Restore scrolling
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
     };
     
     window.onclick = (e) => {
         if (e.target === modal) {
             modal.classList.remove('is-open');
-            document.body.style.overflow = 'auto'; // Restore scrolling
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
         }
     };
     
@@ -582,7 +588,9 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('is-open')) {
         modal.classList.remove('is-open');
-        document.body.style.overflow = 'auto';
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
     }
 });
 });
@@ -705,13 +713,17 @@ function openCart() {
   renderCart();
   const modal = document.getElementById('cartModal');
   document.body.style.overflow = 'hidden';
+  document.body.style.position = 'fixed';
+  document.body.style.width = '100%';
   modal.style.display = 'block';
 }
 
 function closeCart() {
   const modal = document.getElementById('cartModal');
   modal.style.display = 'none';
-  document.body.style.overflow = 'auto';
+  document.body.style.overflow = '';
+  document.body.style.position = '';
+  document.body.style.width = '';
 }
 
 function renderCart() {
