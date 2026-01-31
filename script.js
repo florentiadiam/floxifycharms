@@ -1,5 +1,5 @@
 // Sample product data - you'll replace with your actual products and images
-
+let savedScrollY = 0;
 const products = [
     
     // Necklaces
@@ -70,6 +70,33 @@ const products = [
         description: 'Pierced Heart, a love that bleeds, but never breaks The chain is made with a technique called chainmail and its made from Stainless Steel, the charm in the middle is made from Zinic Alloy.If you wish, you may include your preferred necklace length in the description so it can be made to fit you perfectly. ',
         images: ['Images/Chokers/PiercedHeart/photo1.jpg', 'Images/Chokers/PiercedHeart/photo2.jpg', 'Images/Chokers/PiercedHeart/photo3.jpg']
     },
+            {
+        id: 22,
+        name: 'Nocturne Wings Earrings',
+        category: 'earrings',
+        price: 7,
+        stock: 6, // ← OUT OF STOCK EXAMPLE!
+        description: 'Nocturne Wings, born to rule the night. The hooks are made by Stainless Steel and the charms are made by Zinic Alloy.',
+        images: ['Images/Earrings/NocturneWings.jpg']
+    },
+            {
+        id: 23,
+        name: 'White Roses Earrings',
+        category: 'earrings',
+        price: 6,
+        stock: 7, // ← OUT OF STOCK EXAMPLE!
+        description: 'White Roses, a knight’s vow in bloom. The hooks are made by Stainless Steel and the charms are made by Zinic Alloy.',
+        images: ['Images/Earrings/WhiteRoses.jpg']
+    },
+            {
+        id: 24,
+        name: 'Little Moth Earrings',
+        category: 'earrings',
+        price: 6,
+        stock: 7, // ← OUT OF STOCK EXAMPLE!
+        description: 'Little Moth, quiet beauty of the night. The hooks are made by Stainless Steel and the charms are made by Zinic Alloy.',
+        images: ['Images/Earrings/LittleMoth.jpg']
+    },
 
      {
         id: 8,
@@ -120,6 +147,24 @@ const products = [
     },
                  {
         id: 13,
+        name: 'The Chained Star Choker',
+        category: 'chokers',
+        price: 15,
+        stock: 7, // ← ADD STOCK HERE!
+        description: 'Chained Star, light was never meant to be free. The chain is hand-wired and made from Stainless Steel, the charm in the middle is made from Zinic Alloy.If you wish, you may include your preferred necklace length in the description so it can be made to fit you perfectly.',
+        images: ['Images/Chokers/ChainedStar/photo1.jpg','Images/Chokers/ChainedStar/photo2.jpg']
+    },
+    {
+           id: 21,
+        name: 'The Katana Necklace',
+        category: 'necklaces',
+        price: 15,
+        stock: 7, // ← ADD STOCK HERE!
+        description: 'The Katana Necklace, 静かなる刃. The chain is hand-wired and made from Stainless Steel, the charm in the middle is made from Zinic Alloy.If you wish, you may include your preferred necklace length in the description so it can be made to fit you perfectly.',
+        images: ['Images/Necklaces/Katana/photo1.jpg','Images/Necklaces/Katana/photo2.jpg']
+    },
+                 {
+        id: 14,
         name: 'Bloodbound Cross Earrings',
         category: 'earrings',
         price: 7,
@@ -129,7 +174,7 @@ const products = [
     },
 
                      {
-        id: 14,
+        id: 15,
         name: 'Scarlet Rite Earrings',
         category: 'earrings',
         price: 7,
@@ -140,7 +185,7 @@ const products = [
     // Earrings
 
     {
-        id: 15,
+        id: 16,
         name: 'The Vampire Heart Necklace/Choker',
         category: 'necklaces',
         price: 13,
@@ -149,7 +194,7 @@ const products = [
         images: ['Images/Necklaces/VampireHeart/photo1.png']
     },
      {
-        id: 16,
+        id: 17,
         name: 'Red Starry Heart Choker',
         category: 'chokers',
         price: 13,
@@ -157,8 +202,36 @@ const products = [
         description: 'Red Starry Heart, a desire written in red. This necklace features a hand-wired chain crafted from stainless steel, with bead-connecting rings made of zinc alloy. The charm is also made from zinc alloy. If you wish, you may include your preferred necklace length in the description so it can be made to fit you perfectly. ',
         images: ['Images/Chokers/RedStarryHeart/photo1.jpg','Images/Chokers/RedStarryHeart/photo2.jpg']
     },
+
         {
-        id: 17,
+        id: 25,
+        name: 'Crimson Devotion Earrings',
+        category: 'earrings',
+        price: 7,
+        stock: 10,
+        description: 'Crimson Devotion...Love that bleeds, faith that endures.The roses I have are WHITE, not silver like the picture !!This necklace features a hand-wired chain crafted from stainless steel, with bead-connecting rings made of zinc alloy. The charm is also made from zinc alloy. If you wish, you may include your preferred necklace length in the description so it can be made to fit you perfectly. ',
+        images: ['Images/Earrings/CrimsonDevotion.jpg']
+    },
+         {
+        id: 18,
+        name: 'The Moth Necklace',
+        category: 'necklaces',
+        price: 13,
+        stock: 10,
+        description: 'The Moth, drawn to the light, destined for the dark. This necklace features a hand-wired chain crafted from stainless steel, with bead-connecting rings made of zinc alloy. The charm is also made from zinc alloy. If you wish, you may include your preferred necklace length in the description so it can be made to fit you perfectly. ',
+        images: ['Images/Necklaces/Moth/photo1.jpg','Images/Necklaces/Moth/photo2.jpg']
+    },
+             {
+        id: 19,
+        name: 'The Moth Earrings',
+        category: 'earrings',
+        price: 7,
+        stock: 10,
+        description: 'The Moth, drawn to the light, destined for the dark. This necklace features a hand-wired chain crafted from stainless steel, with bead-connecting rings made of zinc alloy. The charm is also made from zinc alloy. If you wish, you may include your preferred necklace length in the description so it can be made to fit you perfectly. ',
+        images: ['Images/Earrings/Moth.jpg']
+    },
+        {
+        id: 20,
         name: 'Bat Earrings',
         category: 'earrings',
         price: 8,
@@ -249,9 +322,13 @@ function openProductModal(product) {
     const modalBody = document.getElementById('modalBody');
     
     // Lock body scroll AND make modal scrollable
-    document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.width = '100%';
+// SAVE scroll position
+savedScrollY = window.scrollY;
+
+// Lock scroll without jump
+document.body.style.position = 'fixed';
+document.body.style.top = `-${savedScrollY}px`;
+document.body.style.width = '100%';
     
     // Calculate total with Box Now shipping (δωρεάν για Box Now)
    const shipping = BOXNOW_SHIPPING;  // 3€
@@ -662,6 +739,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = '';
         document.body.style.position = '';
         document.body.style.width = '';
+        window.scrollTo(0, savedScrollY);
     };
     
     window.onclick = (e) => {
@@ -670,6 +748,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = '';
             document.body.style.position = '';
             document.body.style.width = '';
+            window.scrollTo(0, savedScrollY);
         }
     };
     
@@ -680,6 +759,7 @@ document.addEventListener('keydown', (e) => {
         document.body.style.overflow = '';
         document.body.style.position = '';
         document.body.style.width = '';
+        window.scrollTo(0, savedScrollY);
     }
 });
 });
