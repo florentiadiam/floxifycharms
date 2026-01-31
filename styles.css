@@ -1348,3 +1348,118 @@ body {
   font-size: 1.15rem;
   font-weight: 700;
 }
+/* ========================================
+   STOCK MANAGEMENT STYLES
+   ======================================== */
+
+/* Stock badges on product cards */
+.stock-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: 'Cinzel', serif;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+}
+
+.in-stock-badge {
+    background: rgba(34, 197, 94, 0.9);
+    color: white;
+    border: 1px solid rgba(34, 197, 94, 1);
+}
+
+.low-stock-badge {
+    background: rgba(251, 146, 60, 0.9);
+    color: white;
+    border: 1px solid rgba(251, 146, 60, 1);
+    animation: pulse 2s ease infinite;
+}
+
+.out-of-stock-badge {
+    background: rgba(239, 68, 68, 0.9);
+    color: white;
+    border: 1px solid rgba(239, 68, 68, 1);
+}
+
+/* Out of stock card styling */
+.product-card.out-of-stock {
+    opacity: 0.6;
+}
+
+.product-card.out-of-stock .product-image img {
+    filter: grayscale(50%);
+}
+
+.product-card.out-of-stock:hover {
+    transform: translateY(-3px);
+    opacity: 0.8;
+}
+
+/* Stock info in modal */
+.stock-info {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-family: 'Cinzel', serif;
+}
+
+.stock-info.in-stock {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+    border: 2px solid rgba(34, 197, 94, 0.3);
+}
+
+.stock-info.low-stock {
+    background: rgba(251, 146, 60, 0.15);
+    color: #fb923c;
+    border: 2px solid rgba(251, 146, 60, 0.3);
+    animation: pulse 2s ease infinite;
+}
+
+.stock-info.out-of-stock {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    border: 2px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Disabled button */
+.buy-button.disabled,
+.submit-order-btn.disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+    pointer-events: none;
+}
+
+/* Pulse animation for low stock */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.85;
+        transform: scale(1.02);
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .stock-badge {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+        top: 8px;
+        right: 8px;
+    }
+    
+    .stock-info {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+}

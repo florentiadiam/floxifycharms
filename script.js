@@ -8,14 +8,16 @@ const products = [
         name: 'The Ankh Necklace',
         category: 'necklaces',
         price: 18,
+        stock: 3, // ← ADD STOCK HERE! Change numbers as needed
         description: 'Inspired by egyptian mythology combined with rosemary-like aesthetic. The chain and the charm are made by stainless steel and they are anti-allergic.',
-        images: ['Images/Necklaces/AnkhNecklace/photo1.jpg', 'Images/Necklaces/AnkhNecklace/photo2.jpg'] // Add up to 5 image URLs - main image first
+        images: ['Images/Necklaces/AnkhNecklace/photo1.jpg', 'Images/Necklaces/AnkhNecklace/photo2.jpg']
     },
     {
         id: 2,
         name: 'Shadow Crucis Necklace',
         category: 'necklaces',
         price: 15,
+        stock: 5, // ← ADD STOCK HERE!
         description: 'Α black cross born from the shadows,a symbol of silent strength, faith and dark elegance. The chain is hand-wired and is made by Stainless Steel, the charm is made from Zinic Alloy. Write me in the description if you want a custom length (The modification can be shorter but not longer, I mean I can make it like a choker)',
         images: ['Images/Necklaces/ShadowCrucis/photo1.jpg', 'Images/Necklaces/ShadowCrucis/photo2.jpg', 'Images/Necklaces/ShadowCrucis/photo3.jpg', 'Images/Necklaces/ShadowCrucis/photo4.jpg']
     },
@@ -24,42 +26,47 @@ const products = [
         name: 'Black Starry Heart Choker',
         category: 'chokers',
         price: 15,
+        stock: 2, // ← ADD STOCK HERE!
         description: 'Black Starry Heart, where darkness learns to shine. This necklace features a hand-wired chain crafted from stainless steel, with bead-connecting rings made of zinc alloy. The charm is also made from zinc alloy. If you wish, you may include your preferred necklace length in the description so it can be made to fit you perfectly. ',
         images: ['Images/Chokers/BlackStarryHeart/photo1.jpg', 'Images/Chokers/BlackStarryHeart/photo2.jpg']
     },
     
     // Chokers
         {
-        id: 5,
+        id: 4,
         name: 'The Skull Choker',
         category: 'chokers',
         price: 15,
+        stock: 4, // ← ADD STOCK HERE!
         description: 'The Skull Choker, devotion carved in bone.The chain is hand-wired and made fromm Stainless Steel, the skull charms and the spikes are made from Zinic Alloy. If you wish, you may include your preferred necklace length in the description so it can be made to fit you perfectly.',
         images: ['Images/Chokers/SkullChoker/photo1.jpg', 'Images/Chokers/SkullChoker/photo3.jpg', 'Images/Chokers/SkullChoker/photo2.jpg']
     },
        {
-        id: 6,
+        id: 5,
         name: 'The Ouija Board Necklace',
         category: 'necklaces',
         price: 25,
+        stock: 1, // ← ADD STOCK HERE!
         description: 'The Ouija Board Necklace, whisper your question...let the spirits answer. The ouija board charm is made from Stainless Steel, the wires are made from Zinic Alloy.',
         images: ['Images/Necklaces/OuijaBoard/photo1.jpg', 'Images/Necklaces/OuijaBoard/photo2.jpg', 'Images/Necklaces/OuijaBoard/photo3.jpg']
     },
     
 
     {
-        id: 4,
+        id: 6,
         name: 'Midnight Devotion Choker',
         category: 'chokers',
         price: 25,
+        stock: 3, // ← ADD STOCK HERE!
         description: 'Midnight Devotion, a love sworn after dark. The chain is hand-wired and made from Stainless Steel, the charm in the middle is made from Zinic Alloy.If you wish, you may include your preferred necklace length in the description so it can be made to fit you perfectly. ',
         images: ['Images/Chokers/MidnightDevotion/photo1.jpg', 'Images/Chokers/MidnightDevotion/photo2.jpg', 'Images/Chokers/MidnightDevotion/photo3.jpg','Images/Chokers/MidnightDevotion/photo4.jpg']
     },
         {
-        id: 4,
+        id: 7,
         name: 'Pierced Heart Choker',
         category: 'chokers',
         price: 15,
+        stock: 3, // ← OUT OF STOCK EXAMPLE!
         description: 'Pierced Heart, a love that bleeds, but never breaks The chain is made with a technique called chainmail and its made from Stainless Steel, the charm in the middle is made from Zinic Alloy.If you wish, you may include your preferred necklace length in the description so it can be made to fit you perfectly. ',
         images: ['Images/Chokers/PiercedHeart/photo1.jpg', 'Images/Chokers/PiercedHeart/photo2.jpg', 'Images/Chokers/PiercedHeart/photo3.jpg']
     },
@@ -69,83 +76,93 @@ const products = [
         name: 'Plague Doctor Earrings',
         category: 'earrings',
         price: 7,
+        stock: 10, // ← ADD STOCK HERE!
         description: 'These earrings are inspired from the Plague Era, the hooks are made by Stainless Steel and the charms are made by Zinic Alloy.',
         images: ['Images/Earrings/PlagueDoctorEarrings.jpg']
     },
         {
-        id: 8,
+        id: 9,
         name: 'Obsidian Drop Earrings',
         category: 'earrings',
         price: 7,
+        stock: 8, // ← ADD STOCK HERE!
         description: 'Obsidian Drop, elegance carved in shadow. Everything is made from Stainless Steel.',
         images: ['Images/Earrings/ObsidianDrop.jpg']
     },
             {
-        id: 8,
+        id: 10,
         name: 'Chapel of Hearts Earrings',
         category: 'earrings',
         price: 6,
+        stock: 12, // ← ADD STOCK HERE!
         description: 'Chapel of Hearts, a sacred kind of love. The hook is made by Stainless Steel and the heart charm from Zinic Alloy.',
         images: ['Images/Earrings/ChapelOfHearts.jpg']
     },
 
        {
-        id: 9,
+        id: 11,
         name: 'Edgy Heart Earrings',
         category: 'earrings',
         price: 6,
+        stock: 15, // ← ADD STOCK HERE!
         description: 'The hook is made by Stainless Steel and the charm is made from Zinic Alloy.',
         images: ['Images/Earrings/EdgyHeartEarrings.jpg']
     },
 
              {
-        id: 8,
+        id: 12,
         name: 'Black Roses Earrings',
         category: 'earrings',
         price: 7,
+        stock: 6, // ← ADD STOCK HERE!
         description: 'Black Roses, bloom in the shadows. The hook is made from Stainless Steel and the spike is made from Zinic Alloy.',
         images: ['Images/Earrings/BlackRoses.png']
     },
                  {
-        id: 8,
+        id: 13,
         name: 'Bloodbound Cross Earrings',
         category: 'earrings',
         price: 7,
+        stock: 9, // ← ADD STOCK HERE!
         description: 'Bloodbound Cross, a faith that bleeds. The hook is made from Stainless Steel and the cross is made from Zinic Alloy.',
         images: ['Images/Earrings/BloodBoundCross.jpg']
     },
 
                      {
-        id: 8,
+        id: 14,
         name: 'Scarlet Rite Earrings',
         category: 'earrings',
         price: 7,
+        stock: 11, // ← ADD STOCK HERE!
         description: 'Scarlet Rite, a ritual sealed in red. The hook is made from Stainless Steel and the cross is made from Zinic Alloy.',
         images: ['Images/Earrings/ScarletRite.jpg']
     },
     // Earrings
 
     {
-        id: 4,
+        id: 15,
         name: 'The Vampire Heart Necklace/Choker',
         category: 'necklaces',
         price: 13,
+        stock: 10,
         description: 'Vampire Heart, a heartbeat after midnight. The chain is hand-wired and made from Stainless Steel, the charm in the middle is made from Zinic Alloy.If you wish, you may include your preferred necklace length in the description so it can be made to fit you perfectly. It can be either a choker or a necklace ',
         images: ['Images/Necklaces/VampireHeart/photo1.png']
     },
      {
-        id: 4,
+        id: 16,
         name: 'Red Starry Heart Choker',
         category: 'chokers',
         price: 13,
+        stock: 11,
         description: 'Red Starry Heart, a desire written in red. This necklace features a hand-wired chain crafted from stainless steel, with bead-connecting rings made of zinc alloy. The charm is also made from zinc alloy. If you wish, you may include your preferred necklace length in the description so it can be made to fit you perfectly. ',
         images: ['Images/Chokers/RedStarryHeart/photo1.jpg','Images/Chokers/RedStarryHeart/photo2.jpg']
     },
         {
-        id: 7,
+        id: 17,
         name: 'Bat Earrings',
         category: 'earrings',
         price: 8,
+        stock: 11,
         description: 'Write me in the description if you want the Black or Red pair !! Only 1 pair included. The hook is made by Stainless Steel and the charm is made by Zinic Alloy.',
         images: ['Images/Earrings/BatEarrings.jpg']
     },
@@ -179,9 +196,22 @@ function renderProducts(filter = 'all') {
 function createProductCard(product) {
     const card = document.createElement('div');
     card.className = 'product-card';
+    
+    // Add out-of-stock class if needed
+    if (product.stock === 0) {
+        card.classList.add('out-of-stock');
+    }
+    
     card.onclick = () => openProductModal(product);
     
     const mainImage = product.images && product.images[0] ? product.images[0] : '';
+    
+    // Stock badge HTML - ONLY show if OUT OF STOCK
+    let stockBadge = '';
+    if (product.stock === 0) {
+        stockBadge = '<div class="stock-badge out-of-stock-badge">Out of Stock</div>';
+    }
+    // Don't show "available" or "low stock" badges on cards
     
     card.innerHTML = `
         <div class="product-image">
@@ -189,6 +219,7 @@ function createProductCard(product) {
                 ? `<img src="${mainImage}" alt="${product.name}">`
                 : '<div class="placeholder-icon">✦</div>'
             }
+            ${stockBadge}
         </div>
         <div class="product-info">
             <div class="product-category">${product.category}</div>
@@ -196,9 +227,14 @@ function createProductCard(product) {
             <p class="product-description">${product.description}</p>
        <div class="product-price">${product.price}€</div>
 
-<button class="buy-button" onclick="event.stopPropagation(); addToCartFromModal(${product.id})">
-  Add to card 🛒
-</button>
+${product.stock > 0 
+    ? `<button class="buy-button" onclick="event.stopPropagation(); addToCartFromModal(${product.id})">
+         Add to Cart 🛒
+       </button>`
+    : `<button class="buy-button disabled" disabled>
+         Out of Stock 🖤
+       </button>`
+}
 
 <button class="buy-button">View Details</button>
         </div>
@@ -272,14 +308,28 @@ function openProductModal(product) {
                 <div class="product-category">${product.category}</div>
                 <h2>${product.name}</h2>
                 <p class="product-description">${product.description}</p>
+                
+                <!-- Stock Display -->
+                ${product.stock === 0 
+                    ? '<div class="stock-info out-of-stock">❌ Out of Stock</div>'
+                    : product.stock <= 2
+                    ? `<div class="stock-info low-stock">⚠️ Only ${product.stock} left in stock!</div>`
+                    : `<div class="stock-info in-stock">✅ ${product.stock} available</div>`
+                }
+                
                 <div class="product-price">${product.price}€</div>
                <p style="color: var(--accent-purple-light); margin-bottom: 1rem; font-weight: 600;">
                 📦 Μεταφορικά Box Now: +${shipping}€
                 </p>
                 
-<button class="submit-order-btn" onclick="addToCartFromModal(${product.id})">
-  Προσθήκη στο καλάθι 🛒
-</button>
+${product.stock > 0 
+    ? `<button class="submit-order-btn" onclick="addToCartFromModal(${product.id})">
+         Προσθήκη στο καλάθι 🛒
+       </button>`
+    : `<button class="submit-order-btn disabled" disabled style="opacity: 0.5; cursor: not-allowed;">
+         Out of Stock 🖤
+       </button>`
+}
 
 <p style="color: var(--text-secondary); margin-top: 0.8rem; font-size: 0.95rem;">
   Η πληρωμή ολοκληρώνεται από το καλάθι. 
@@ -581,10 +631,7 @@ function showOrderConfirmation(orderData) {
     `;
     
     confirmation.innerHTML = `
-        <h4 style="margin-bottom: 0.5rem; font-family: 'Cinzel', serif;">✅ Στοιχεία Καταχωρήθηκαν!</h4>
-        <p style="font-size: 0.95rem; margin-bottom: 0.5rem;">
-            Αποστολή στο: <strong>${orderData.boxNow}</strong>
-        </p>
+        <h4 style="margin-bottom: 0.5rem; font-family: 'Cinzel', serif;">✅ Το προϊόν προστέθηκε στο καλάθι!</h4>
         <p style="font-size: 0.9rem; opacity: 0.9;">
             Επέλεξε τρόπο πληρωμής για να ολοκληρώσεις την παραγγελία!
         </p>
@@ -772,8 +819,21 @@ function updateCartCount() {
 }
 
 function addToCart(product, qty = 1) {
+  // Check stock availability
+  if (product.stock === 0) {
+    alert('Sorry! This item is out of stock 🖤');
+    return false;
+  }
+  
   const cart = getCart();
   const existing = cart.find(i => i.id === product.id);
+  
+  // Check if adding would exceed stock
+  const currentQtyInCart = existing ? existing.qty : 0;
+  if (currentQtyInCart + qty > product.stock) {
+    alert(`Only ${product.stock} available! You already have ${currentQtyInCart} in your cart.`);
+    return false;
+  }
 
   if (existing) existing.qty += qty;
   else cart.push({
@@ -785,10 +845,22 @@ function addToCart(product, qty = 1) {
   });
 
   saveCart(cart);
+  return true;
 }
 
 function changeCartQty(productId, delta) {
   let cart = getCart();
+  const product = products.find(p => p.id === productId);
+  
+  // Check stock when increasing quantity
+  if (delta > 0 && product) {
+    const cartItem = cart.find(i => i.id === productId);
+    if (cartItem && cartItem.qty + delta > product.stock) {
+      alert(`Only ${product.stock} available in stock!`);
+      return;
+    }
+  }
+  
   cart = cart.map(i => i.id === productId ? { ...i, qty: i.qty + delta } : i)
              .filter(i => i.qty > 0);
   saveCart(cart);
@@ -902,12 +974,20 @@ document.addEventListener('DOMContentLoaded', () => {
 function addToCartFromModal(productId) {
   const product = products.find(p => p.id === productId);
   if (!product) return;
+  
+  // Check stock before adding
+  if (product.stock === 0) {
+    alert('Sorry! This item is out of stock 🖤');
+    return;
+  }
 
-  addToCart(product, 1);
-
-  showOrderConfirmation({
-    boxNow: 'Το προϊόν προστέθηκε στο καλάθι 🛒'
-  });
+  const success = addToCart(product, 1);
+  
+  if (success) {
+    showOrderConfirmation({
+      boxNow: 'Το προϊόν προστέθηκε στο καλάθι 🛒'
+    });
+  }
 }
 
 function openCartCheckout() {
